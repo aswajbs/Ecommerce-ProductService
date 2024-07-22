@@ -25,10 +25,10 @@ public class Productcontroller {
 
         return productService.getProduct(id);
     }
-    @GetMapping
+    @GetMapping("")
     public List<Product> getAllProducts(){
 
-        return new ArrayList<Product>();
+        return productService.getAllProducts();
     }
 
 }
