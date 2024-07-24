@@ -1,5 +1,7 @@
 package com.ecommerce.productservice.controllers;
 
+import com.ecommerce.productservice.Exceptions.IdOutOfBoundException;
+import com.ecommerce.productservice.Exceptions.ProductNotFoundException;
 import com.ecommerce.productservice.Models.Product;
 import com.ecommerce.productservice.Services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -20,15 +22,19 @@ public class Productcontroller {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id){
-        ResponseEntity<Product> response;
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) throws ProductNotFoundException, IdOutOfBoundException {
+       /*Handling Exception @ controller
+       ResponseEntity<Product> response;
         try{
 
             response = new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
         } catch (RuntimeException e){
             response = new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
-        }
+        } */
+        // Exception handling is carried out in the Service Class
+        ResponseEntity<Product> response;
+        response=new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
 
        return response;
 

@@ -1,5 +1,7 @@
 package com.ecommerce.productservice.Services;
 
+import com.ecommerce.productservice.Exceptions.IdOutOfBoundException;
+import com.ecommerce.productservice.Exceptions.ProductNotFoundException;
 import com.ecommerce.productservice.Models.Category;
 import com.ecommerce.productservice.Models.Product;
 import com.ecommerce.productservice.dtos.FakeStoreProductDto;
@@ -12,17 +14,26 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class FakeStoreProductService implements ProductService{
+public class FakeStoreProductService implements ProductService {
 private RestTemplate restTemplate;
 public FakeStoreProductService(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
 }
 
 @Override
-   public Product getProduct(Long id){
+   public Product getProduct(Long id) throws ProductNotFoundException,IdOutOfBoundException {
 
-      FakeStoreProductDto fakeStoreProductDto=  restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreProductDto.class);
 
+
+
+        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
+                FakeStoreProductDto.class);
+    if (Long.toString(id).length()>=3){
+        throw new IdOutOfBoundException("Product "+ id+ " Out of Products Range ");
+    }
+    else if (fakeStoreProductDto == null){
+       throw new ProductNotFoundException("Product with "+id);
+   }
         //Convert FakeStoreProductDto to ProductService
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
 
