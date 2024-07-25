@@ -1,16 +1,14 @@
 package com.ecommerce.productservice.Models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 @Getter
 @Setter
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
