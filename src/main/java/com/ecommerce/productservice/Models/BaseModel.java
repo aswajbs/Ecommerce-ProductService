@@ -8,7 +8,11 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name="Product_type",
+      discriminatorType=DiscriminatorType.INTEGER)
+
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
