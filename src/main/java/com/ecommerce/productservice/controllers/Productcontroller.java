@@ -4,6 +4,7 @@ import com.ecommerce.productservice.Exceptions.IdOutOfBoundException;
 import com.ecommerce.productservice.Exceptions.ProductNotFoundException;
 import com.ecommerce.productservice.Models.Product;
 import com.ecommerce.productservice.Services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,13 @@ import java.util.List;
 public class Productcontroller {
     private ProductService productService;
 
-    public Productcontroller(ProductService productService) {
+    public Productcontroller(@Qualifier(value="selfstoreps") ProductService productService) {
 
         this.productService = productService;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) throws ProductNotFoundException, IdOutOfBoundException {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException, IdOutOfBoundException {
        /*Handling Exception @ controller
        ResponseEntity<Product> response;
         try{
@@ -45,7 +46,7 @@ public class Productcontroller {
         return productService.getAllProducts();
     }
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("{id}") long id,@RequestBody Product product){
+    public Product updateProduct(@PathVariable("{id}") Long id,@RequestBody Product product){
 
         return productService.updateProduct(id,product);
     }
