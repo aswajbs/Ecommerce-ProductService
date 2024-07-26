@@ -13,6 +13,4 @@ public class Product extends BaseModel {
     private double price;
     @ManyToOne
     private Category category;
-
-
 }

@@ -23,9 +23,6 @@ public FakeStoreProductService(RestTemplate restTemplate) {
 @Override
    public Product getProduct(Long id) throws ProductNotFoundException,IdOutOfBoundException {
 
-
-
-
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
                 FakeStoreProductDto.class);
     if (Long.toString(id).length()>=3){
