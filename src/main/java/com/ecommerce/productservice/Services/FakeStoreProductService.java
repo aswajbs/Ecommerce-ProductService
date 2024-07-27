@@ -52,6 +52,17 @@ private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStor
             "https://fakestoreapi.com/products/",FakeStoreProductDto[].class);
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDtos);
     }
+
+    @Override
+    public Product addProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) throws ProductNotFoundException {
+
+    }
+
     @Override
     public Product updateProduct(long id, Product product) {
         long request =id;

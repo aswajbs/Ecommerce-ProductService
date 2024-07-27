@@ -2,7 +2,9 @@ package com.ecommerce.productservice.Services;
 
 import com.ecommerce.productservice.Exceptions.IdOutOfBoundException;
 import com.ecommerce.productservice.Exceptions.ProductNotFoundException;
+import com.ecommerce.productservice.Models.Category;
 import com.ecommerce.productservice.Models.Product;
+import com.ecommerce.productservice.Repositories.CategoryRepo;
 import com.ecommerce.productservice.Repositories.Productrepo;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,10 @@ import java.util.Optional;
 @Primary
 public class SelfStoreProductService implements ProductService{
     private Productrepo productrepo;
-    public SelfStoreProductService(Productrepo productrepo) {
+    private CategoryRepo categoryrepo;
+    public SelfStoreProductService(Productrepo productrepo, CategoryRepo categoryrepo) {
         this.productrepo = productrepo;
+        this.categoryrepo = categoryrepo;
     }
     @Override
     public Product getProduct(Long id) throws ProductNotFoundException, IdOutOfBoundException {
@@ -31,12 +35,36 @@ public class SelfStoreProductService implements ProductService{
     }
 
     @Override
-    public Product updateProduct(long id, Product product) {
-        return null;
+    public Product addProduct(Product product) {
+        Category category ;
+        if(product.getCategory() != null){
+            category=categoryrepo.save(product.getCategory());
+            product.setCategory(category);}
+
+        return productrepo.save(product);
     }
 
     @Override
-    public Product replaceProduct(Long id, Product product) {
-        return null;
+    public void deleteProduct(Long id) throws ProductNotFoundException {
+        if(productrepo.existsById(id))
+            productrepo.deleteById(id);
+        else
+            throw new ProductNotFoundException("Product with id "+id);
+    }
+
+    @Override
+    public Product updateProduct(long id, Product product) throws ProductNotFoundException {
+        if(productrepo.existsById(id))
+                    return productrepo.save(product);
+        else
+            throw new ProductNotFoundException("Product with id "+id );
+    }
+
+    @Override
+    public Product replaceProduct(Long id, Product product) throws ProductNotFoundException {
+        if(productrepo.existsById(id))
+            return productrepo.save(product);
+        else
+            throw new ProductNotFoundException("Product with id "+id);
     }
 }

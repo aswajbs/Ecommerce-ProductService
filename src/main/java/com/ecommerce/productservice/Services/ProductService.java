@@ -9,7 +9,8 @@ import java.util.List;
 public interface ProductService {
      Product getProduct(Long id) throws ProductNotFoundException, IdOutOfBoundException;
      List<Product> getAllProducts();
-     Product updateProduct(long id, Product product);
-
-    Product replaceProduct(Long id, Product product);
+     Product addProduct(Product product);
+     void deleteProduct(Long id) throws ProductNotFoundException;
+     Product updateProduct(long id, Product product) throws ProductNotFoundException;
+     Product replaceProduct(Long id, Product product) throws ProductNotFoundException;
     }

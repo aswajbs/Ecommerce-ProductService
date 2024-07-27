@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping ("/Products")
-public class Productcontroller {
+public class Productcontroller  {
     private ProductService productService;
 
     public Productcontroller(ProductService productService) {
@@ -51,9 +51,25 @@ public class Productcontroller {
         return productService.getAllProducts();
     }
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("{id}") Long id,@RequestBody Product product){
+    public Product updateProduct(@PathVariable("id") Long id,@RequestBody Product product) throws ProductNotFoundException {
 
         return productService.updateProduct(id,product);
     }
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id) throws ProductNotFoundException {
+        ResponseEntity<Product> response;
+        productService.deleteProduct(id);
+
+    }
+    @PutMapping("/{id}")
+    public Product replaceProduct(@PathVariable("id") Long id,@RequestBody Product product) throws ProductNotFoundException {
+
+        return productService.replaceProduct(id, product);   }
+
+    @PostMapping
+    public Product addProduct(@RequestBody Product product) throws ProductNotFoundException {
+        return productService.addProduct(product);
+    }
+
 
 }
