@@ -45,10 +45,10 @@ public class SelfStoreProductService implements ProductService{
 
     @Override
     public Product addProduct(Product product) {
-        Category category ;
-        if(product.getCategory() != null){
-            category=categoryrepo.save(product.getCategory());
-            product.setCategory(category);}
+//        Category category ;
+//        if(product.getCategory() != null){
+//            category=categoryrepo.save(product.getCategory());
+//            product.setCategory(category);}
 
         return productrepo.save(product);
     }

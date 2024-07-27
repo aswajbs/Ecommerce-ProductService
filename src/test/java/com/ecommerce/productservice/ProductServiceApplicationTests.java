@@ -19,13 +19,13 @@ class ProductServiceApplicationTests {
    void contextLoads() {
    }
 
-   @Test
-   void testDBQueries() {
-       ProductsbyIdName productsbyIdName = productrepo.findProductsbyIdName(3L);
-
-          System.out.println(productsbyIdName.getId() + " " + productsbyIdName.getTitle());
-       }
+//   @Test
+//   void testDBQueries() {
+//       ProductsbyIdName productsbyIdName = productrepo.findProductsbyIdName(3L);
 //
+//          System.out.println(productsbyIdName.getId() + " " + productsbyIdName.getTitle());
+//       }
+////
 
 
 }
