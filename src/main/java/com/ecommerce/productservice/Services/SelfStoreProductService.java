@@ -31,7 +31,16 @@ public class SelfStoreProductService implements ProductService{
     }
     @Override
     public List<Product> getAllProducts() {
-        return productrepo.findAll();
+        /*Implementation of Native Queries Method
+        return productrepo.findallbySqlquery();*/
+
+        /* Implementation of Declared Queries Method
+        return productrepo.findAll();*/
+
+        /*Implementation of Hibernate Query Language(HQL)*/
+      return  productrepo.findallbyHql();
+
+
     }
 
     @Override
